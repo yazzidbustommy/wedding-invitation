@@ -106,4 +106,4 @@ export const timelineEvents: TimelineEvent[] = [
     title: "Pernikahan Kami",
     description: "Hari dimana kami resmi memulai perjalanan bersama sebagai suami istri."
   }
-];`
+];
