@@ -7,8 +7,8 @@ const EventDetails: React.FC = () => {
     <section id="events" className="py-16 bg-pink-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="font-serif text-3xl text-gray-800 mb-2">Wedding Events</h2>
-          <p className="text-gray-600 max-w-lg mx-auto">Join us as we celebrate our special day with family and friends</p>
+          <h2 className="font-serif text-3xl text-gray-800 mb-2">Rangkaian Acara</h2>
+          <p className="text-gray-600 max-w-lg mx-auto">Jadwal acara pernikahan kami</p>
           <div className="w-16 h-0.5 bg-pink-300 mx-auto mt-4"></div>
         </div>
         
@@ -33,7 +33,14 @@ const EventDetails: React.FC = () => {
                 
                 <div className="flex items-center">
                   <MapPin className="w-5 h-5 text-pink-400 mr-3" />
-                  <span className="text-gray-700">{event.location}</span>
+                  <a 
+                    href={event.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-700 hover:text-pink-500 underline"
+                  >
+                    {event.location}
+                  </a>
                 </div>
               </div>
               

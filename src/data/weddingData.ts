@@ -14,26 +14,29 @@ export const events: EventDetails[] = [
   {
     id: "akad",
     title: "Akad Nikah",
-    date: "12 December 2025",
+    date: "12 Desember 2025",
     time: "09:00 - 11:00",
-    location: "Wedding Venue, City",
-    description: "We are honored to invite you to witness our sacred marriage ceremony (Akad Nikah) as we begin our journey together as husband and wife."
+    location: "Gedung Pernikahan, Kota",
+    description: "Kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara akad nikah kami sebagai awal perjalanan kami sebagai suami istri.",
+    mapsUrl: "https://maps.google.com/?q=Wedding+Venue+City"
   },
   {
     id: "reception-bride",
-    title: "Reception at Bride's Family",
-    date: "13 December 2025",
+    title: "Resepsi di Kediaman Mempelai Wanita",
+    date: "13 Desember 2025",
     time: "10:00 - 15:00",
-    location: "Bride's Family Residence, City",
-    description: "Join us for a reception celebrating our marriage at the bride's family residence. We look forward to sharing this joyous occasion with you."
+    location: "Kediaman Keluarga Mempelai Wanita, Kota",
+    description: "Kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara resepsi pernikahan kami di kediaman mempelai wanita.",
+    mapsUrl: "https://maps.google.com/?q=Bride+Family+Residence+City"
   },
   {
     id: "reception-groom",
-    title: "Reception at Groom's Family",
-    date: "14 December 2025",
+    title: "Resepsi di Kediaman Mempelai Pria",
+    date: "14 Desember 2025",
     time: "10:00 - 15:00",
-    location: "Groom's Family Residence, City",
-    description: "We cordially invite you to join us for a reception at the groom's family residence as we continue to celebrate our union."
+    location: "Kediaman Keluarga Mempelai Pria, Kota",
+    description: "Kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara resepsi pernikahan kami di kediaman mempelai pria.",
+    mapsUrl: "https://maps.google.com/?q=Groom+Family+Residence+City"
   }
 ];
 
@@ -42,32 +45,32 @@ export const galleryImages: GalleryImage[] = [
   {
     id: 1,
     src: "https://images.pexels.com/photos/2253870/pexels-photo-2253870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    alt: "Couple holding hands"
+    alt: "Foto pasangan bergandengan tangan"
   },
   {
     id: 2,
     src: "https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    alt: "Couple smiling together"
+    alt: "Foto pasangan tersenyum bersama"
   },
   {
     id: 3,
     src: "https://images.pexels.com/photos/3805762/pexels-photo-3805762.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    alt: "Couple walking on beach"
+    alt: "Foto pasangan berjalan di pantai"
   },
   {
     id: 4,
     src: "https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    alt: "Couple in garden"
+    alt: "Foto pasangan di taman"
   },
   {
     id: 5,
     src: "https://images.pexels.com/photos/1043902/pexels-photo-1043902.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    alt: "Engagement photo"
+    alt: "Foto pertunangan"
   },
   {
     id: 6,
     src: "https://images.pexels.com/photos/1114425/pexels-photo-1114425.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    alt: "Couple dancing"
+    alt: "Foto pasangan berdansa"
   }
 ];
 
@@ -75,32 +78,32 @@ export const galleryImages: GalleryImage[] = [
 export const timelineEvents: TimelineEvent[] = [
   {
     id: 1,
-    date: "January 2020",
-    title: "First Meeting",
-    description: "We met through mutual friends at a university event and instantly connected."
+    date: "Januari 2020",
+    title: "Pertemuan Pertama",
+    description: "Kami bertemu melalui teman bersama di sebuah acara universitas dan langsung merasakan kecocokan."
   },
   {
     id: 2,
-    date: "June 2021",
-    title: "First Date",
-    description: "Our first official date was at a quaint cafe where we talked for hours."
+    date: "Juni 2021",
+    title: "Kencan Pertama",
+    description: "Kencan pertama kami di sebuah kafe yang nyaman, dimana kami berbincang selama berjam-jam."
   },
   {
     id: 3,
-    date: "December 2022",
-    title: "Falling in Love",
-    description: "As we spent more time together, our connection grew deeper and we fell in love."
+    date: "Desember 2022",
+    title: "Jatuh Cinta",
+    description: "Seiring waktu berjalan, hubungan kami semakin dekat dan kami saling jatuh cinta."
   },
   {
     id: 4,
-    date: "March 2024",
-    title: "The Proposal",
-    description: "During a weekend getaway, surrounded by nature's beauty, he proposed and she said yes!"
+    date: "Maret 2024",
+    title: "Lamaran",
+    description: "Di tengah keindahan alam saat liburan akhir pekan, dia melamar dan dia menerima!"
   },
   {
     id: 5,
-    date: "December 2025",
-    title: "Our Wedding",
-    description: "The day we officially begin our journey together as husband and wife."
+    date: "Desember 2025",
+    title: "Pernikahan Kami",
+    description: "Hari dimana kami resmi memulai perjalanan bersama sebagai suami istri."
   }
-];
+];`

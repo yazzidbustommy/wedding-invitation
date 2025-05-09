@@ -5,6 +5,7 @@ export interface EventDetails {
   time: string;
   location: string;
   description: string;
+  mapsUrl: string;
 }
 
 export interface GalleryImage {
