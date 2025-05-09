@@ -1,0 +1,29 @@
+export interface EventDetails {
+  id: string;
+  title: string;
+  date: string;
+  time: string;
+  location: string;
+  description: string;
+}
+
+export interface GalleryImage {
+  id: number;
+  src: string;
+  alt: string;
+}
+
+export interface TimelineEvent {
+  id: number;
+  date: string;
+  title: string;
+  description: string;
+}
+
+export interface RSVPFormData {
+  name: string;
+  email: string;
+  attending: boolean;
+  numberOfGuests: number;
+  message: string;
+}
