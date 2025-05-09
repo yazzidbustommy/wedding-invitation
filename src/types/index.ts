@@ -23,7 +23,7 @@ export interface TimelineEvent {
 
 export interface RSVPFormData {
   name: string;
-  email: string;
+  phone: string;
   attending: boolean;
   numberOfGuests: number;
   message: string;
