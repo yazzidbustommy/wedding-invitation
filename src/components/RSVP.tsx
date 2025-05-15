@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import type { RSVPFormData } from '../types';
-import { supabase } from '../lib/supabase';
+import { db } from '../lib/firebase';
+import { collection, addDoc } from 'firebase/firestore';
 
 const RSVP: React.FC = () => {
   const [formData, setFormData] = useState<RSVPFormData>({
@@ -34,20 +35,15 @@ const RSVP: React.FC = () => {
     setError(null);
     
     try {
-      // Mengirim data ke Supabase
-      const { error: supabaseError } = await supabase
-        .from('rsvp')
-        .insert([{
-          name: formData.name,
-          phone: formData.phone,
-          attending: formData.attending,
-          number_of_guests: formData.numberOfGuests,
-          message: formData.message
-        }]);
-
-      if (supabaseError) {
-        throw supabaseError;
-      }
+      // Mengirim data ke Firebase
+      await addDoc(collection(db, 'rsvp'), {
+        name: formData.name,
+        phone: formData.phone,
+        attending: formData.attending,
+        numberOfGuests: formData.numberOfGuests,
+        message: formData.message,
+        createdAt: new Date()
+      });
 
       setSubmitted(true);
       setFormData({
