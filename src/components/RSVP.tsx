@@ -35,7 +35,6 @@ const RSVP: React.FC = () => {
     setError(null);
     
     try {
-      // Mengirim data ke Firebase
       await addDoc(collection(db, 'rsvp'), {
         name: formData.name,
         phone: formData.phone,
