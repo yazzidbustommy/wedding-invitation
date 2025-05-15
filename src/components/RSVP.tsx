@@ -46,13 +46,13 @@ const RSVP: React.FC = () => {
 
       console.log('Mengirim data:', payload);
 
-      const response = await fetch('https://script.google.com/macros/s/AKfycbx5YnOtCrFMI2lKTjgt9sr6dnLK2UQmMm5tM54JkJ073kvbXQ3Pv1TGy6RDscroS6vY/exec', {
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/rsvp-proxy`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
         },
-        body: JSON.stringify(payload),
-        mode: 'cors'
+        body: JSON.stringify(payload)
       });
 
       if (!response.ok) {
