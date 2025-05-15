@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { RSVPFormData } from '../types';
+import { supabase } from '../lib/supabase';
 
 const RSVP: React.FC = () => {
   const [formData, setFormData] = useState<RSVPFormData>({
@@ -33,50 +34,32 @@ const RSVP: React.FC = () => {
     setError(null);
     
     try {
-      const payload = {
-        data: [
-          formData.name,
-          formData.phone,
-          formData.attending ? 'Ya' : 'Tidak',
-          formData.numberOfGuests,
-          formData.message,
-          new Date().toISOString()
-        ]
-      };
+      // Mengirim data ke Supabase
+      const { error: supabaseError } = await supabase
+        .from('rsvp')
+        .insert([{
+          name: formData.name,
+          phone: formData.phone,
+          attending: formData.attending,
+          number_of_guests: formData.numberOfGuests,
+          message: formData.message
+        }]);
 
-      console.log('Mengirim data:', payload);
+      if (supabaseError) {
+        throw supabaseError;
+      }
 
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/rsvp-proxy`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-        },
-        body: JSON.stringify(payload)
+      setSubmitted(true);
+      setFormData({
+        name: '',
+        phone: '',
+        attending: true,
+        numberOfGuests: 1,
+        message: ''
       });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const result = await response.json();
-      console.log('Respon dari server:', result);
-
-      if (result.result === 'success') {
-        setSubmitted(true);
-        setFormData({
-          name: '',
-          phone: '',
-          attending: true,
-          numberOfGuests: 1,
-          message: ''
-        });
-      } else {
-        throw new Error('Gagal menyimpan data RSVP');
-      }
     } catch (err) {
       console.error('Error saat mengirim RSVP:', err);
-      setError('Terjadi kesalahan saat mengirim RSVP. Silakan coba lagi dalam beberapa saat.');
+      setError('Terjadi kesalahan saat mengirim RSVP. Silakan coba lagi.');
     } finally {
       setLoading(false);
     }
