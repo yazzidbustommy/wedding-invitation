@@ -33,37 +33,50 @@ const RSVP: React.FC = () => {
     setError(null);
     
     try {
+      const payload = {
+        data: [
+          formData.name,
+          formData.phone,
+          formData.attending ? 'Ya' : 'Tidak',
+          formData.numberOfGuests,
+          formData.message,
+          new Date().toISOString()
+        ]
+      };
+
+      console.log('Mengirim data:', payload);
+
       const response = await fetch('https://script.google.com/macros/s/AKfycbx5YnOtCrFMI2lKTjgt9sr6dnLK2UQmMm5tM54JkJ073kvbXQ3Pv1TGy6RDscroS6vY/exec', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          data: [
-            formData.name,
-            formData.phone,
-            formData.attending ? 'Ya' : 'Tidak',
-            formData.numberOfGuests,
-            formData.message,
-            new Date().toISOString()
-          ]
-        }),
+        body: JSON.stringify(payload),
+        mode: 'cors'
       });
 
       if (!response.ok) {
-        throw new Error('Gagal mengirim RSVP');
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      setSubmitted(true);
-      setFormData({
-        name: '',
-        phone: '',
-        attending: true,
-        numberOfGuests: 1,
-        message: ''
-      });
+      const result = await response.json();
+      console.log('Respon dari server:', result);
+
+      if (result.result === 'success') {
+        setSubmitted(true);
+        setFormData({
+          name: '',
+          phone: '',
+          attending: true,
+          numberOfGuests: 1,
+          message: ''
+        });
+      } else {
+        throw new Error('Gagal menyimpan data RSVP');
+      }
     } catch (err) {
-      setError('Terjadi kesalahan saat mengirim RSVP. Silakan coba lagi.');
+      console.error('Error saat mengirim RSVP:', err);
+      setError('Terjadi kesalahan saat mengirim RSVP. Silakan coba lagi dalam beberapa saat.');
     } finally {
       setLoading(false);
     }
