@@ -33,7 +33,7 @@ const RSVP: React.FC = () => {
     setError(null);
     
     try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/exec', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbx5YnOtCrFMI2lKTjgt9sr6dnLK2UQmMm5tM54JkJ073kvbXQ3Pv1TGy6RDscroS6vY/exec', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
