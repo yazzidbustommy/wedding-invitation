@@ -14,37 +14,73 @@ function App() {
   const [showWelcome, setShowWelcome] = useState(true);
 
   useEffect(() => {
-    // Get guest name from URL parameters or hash
-    const urlParams = new URLSearchParams(window.location.search);
-    const hashParams = new URLSearchParams(window.location.hash.substring(1));
-    
-    // Try to get name from different URL formats
-    let nameFromUrl = '';
-    
-    // Method 1: Query parameter (?nama=John-Doe)
-    nameFromUrl = urlParams.get('nama') || urlParams.get('name') || '';
-    
-    // Method 2: Hash parameter (#nama=John-Doe)
-    if (!nameFromUrl) {
-      nameFromUrl = hashParams.get('nama') || hashParams.get('name') || '';
-    }
-    
-    // Method 3: Path parameter (/John-Doe)
-    if (!nameFromUrl) {
-      const path = window.location.pathname;
-      const nameFromPath = path.substring(1); // Remove leading slash
-      if (nameFromPath && nameFromPath !== '' && !nameFromPath.includes('.')) {
-        nameFromUrl = nameFromPath;
+    // Function to extract and process guest name from URL
+    const extractGuestName = () => {
+      let nameFromUrl = '';
+      
+      // Method 1: Query parameter (?nama=John-Doe or ?name=John-Doe)
+      const urlParams = new URLSearchParams(window.location.search);
+      nameFromUrl = urlParams.get('nama') || urlParams.get('name') || '';
+      
+      // Method 2: Hash parameter (#nama=John-Doe or #name=John-Doe)
+      if (!nameFromUrl && window.location.hash) {
+        const hashContent = window.location.hash.substring(1); // Remove #
+        
+        // Check if it's a parameter format (#nama=value)
+        if (hashContent.includes('=')) {
+          const hashParams = new URLSearchParams(hashContent);
+          nameFromUrl = hashParams.get('nama') || hashParams.get('name') || '';
+        } else {
+          // Direct hash format (#JohnDoe)
+          nameFromUrl = hashContent;
+        }
       }
-    }
-    
-    if (nameFromUrl) {
-      // Decode URL and replace hyphens/underscores with spaces
-      const decodedName = decodeURIComponent(nameFromUrl)
-        .replace(/[-_]/g, ' ')
-        .replace(/\b\w/g, l => l.toUpperCase()); // Capitalize first letter of each word
-      setGuestName(decodedName);
-    }
+      
+      // Method 3: Path parameter (/John-Doe)
+      if (!nameFromUrl) {
+        const path = window.location.pathname;
+        const nameFromPath = path.substring(1); // Remove leading slash
+        
+        // Only use path if it's not empty and doesn't contain file extensions
+        if (nameFromPath && 
+            nameFromPath !== '' && 
+            !nameFromPath.includes('.') && 
+            !nameFromPath.includes('/')) {
+          nameFromUrl = nameFromPath;
+        }
+      }
+      
+      // Process the name if found
+      if (nameFromUrl) {
+        // Decode URL encoding
+        let processedName = decodeURIComponent(nameFromUrl);
+        
+        // Replace hyphens and underscores with spaces
+        processedName = processedName.replace(/[-_]/g, ' ');
+        
+        // Capitalize first letter of each word
+        processedName = processedName.replace(/\b\w/g, l => l.toUpperCase());
+        
+        // Clean up extra spaces
+        processedName = processedName.replace(/\s+/g, ' ').trim();
+        
+        return processedName;
+      }
+      
+      return '';
+    };
+
+    const extractedName = extractGuestName();
+    setGuestName(extractedName);
+
+    // Debug logging
+    console.log('URL Analysis:', {
+      fullUrl: window.location.href,
+      pathname: window.location.pathname,
+      search: window.location.search,
+      hash: window.location.hash,
+      extractedName: extractedName
+    });
 
     // Update page title
     document.title = `Wedding of ${coupleInfo.groomShortName} & ${coupleInfo.brideShortName}`;

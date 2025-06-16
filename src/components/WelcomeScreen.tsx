@@ -9,10 +9,31 @@ interface WelcomeScreenProps {
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ guestName, onOpenInvitation }) => {
   const [loaded, setLoaded] = useState(false);
+  const [debugInfo, setDebugInfo] = useState<string>('');
   
   useEffect(() => {
     setLoaded(true);
-  }, []);
+    
+    // Debug information
+    const urlParams = new URLSearchParams(window.location.search);
+    const hashParams = new URLSearchParams(window.location.hash.substring(1));
+    const pathname = window.location.pathname;
+    
+    const debugData = {
+      url: window.location.href,
+      search: window.location.search,
+      hash: window.location.hash,
+      pathname: pathname,
+      namaFromQuery: urlParams.get('nama'),
+      nameFromQuery: urlParams.get('name'),
+      namaFromHash: hashParams.get('nama'),
+      nameFromHash: hashParams.get('name'),
+      guestName: guestName
+    };
+    
+    setDebugInfo(JSON.stringify(debugData, null, 2));
+    console.log('Debug URL Parsing:', debugData);
+  }, [guestName]);
 
   return (
     <div 
@@ -59,10 +80,12 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ guestName, onOpenInvitati
                 <p className="text-white text-xl font-medium bg-white bg-opacity-20 rounded-lg py-2 px-4">
                   {guestName}
                 </p>
+                <p className="text-green-300 text-xs mt-2">✓ Nama berhasil dimuat</p>
               </div>
             ) : (
               <div className="mb-6">
                 <p className="text-pink-200 text-sm">Kepada Bapak/Ibu/Saudara/i</p>
+                <p className="text-yellow-300 text-xs mt-2">⚠ Nama tidak ditemukan di URL</p>
               </div>
             )}
             
@@ -87,10 +110,22 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ guestName, onOpenInvitati
             Buka Undangan
           </button>
           
+          {/* Debug information - only show in development */}
+          {process.env.NODE_ENV === 'development' && (
+            <details className="mt-8 text-xs text-left">
+              <summary className="text-pink-200 cursor-pointer">Debug Info (Development Only)</summary>
+              <pre className="text-pink-200 opacity-75 mt-2 bg-black bg-opacity-30 p-2 rounded text-xs overflow-auto max-h-32">
+                {debugInfo}
+              </pre>
+            </details>
+          )}
+          
           {/* Instructions for testing */}
-          <div className="mt-8 text-xs text-pink-200 opacity-75">
-            <p>Untuk testing personalisasi:</p>
-            <p>Tambahkan ?nama=Nama-Anda di URL</p>
+          <div className="mt-4 text-xs text-pink-200 opacity-75">
+            <p><strong>Cara menggunakan personalisasi:</strong></p>
+            <p>• ?nama=Tomi → https://yazidandtifa.netlify.app/?nama=Tomi</p>
+            <p>• #nama=Tomi → https://yazidandtifa.netlify.app/#nama=Tomi</p>
+            <p>• /Tomi → https://yazidandtifa.netlify.app/Tomi</p>
           </div>
         </div>
       </div>
