@@ -53,16 +53,21 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ guestName, onOpenInvitati
               {coupleInfo.groomShortName} & {coupleInfo.brideShortName}
             </h2>
             
-            {guestName && (
+            {guestName ? (
               <div className="mb-6">
                 <p className="text-pink-200 text-sm mb-2">Kepada Yth.</p>
-                <p className="text-white text-lg font-medium">{guestName}</p>
+                <p className="text-white text-xl font-medium bg-white bg-opacity-20 rounded-lg py-2 px-4">
+                  {guestName}
+                </p>
+              </div>
+            ) : (
+              <div className="mb-6">
+                <p className="text-pink-200 text-sm">Kepada Bapak/Ibu/Saudara/i</p>
               </div>
             )}
             
             <p className="text-white text-sm mb-6 leading-relaxed">
-              Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i 
-              untuk hadir di acara pernikahan kami
+              Tanpa mengurangi rasa hormat, kami mengundang untuk hadir di acara pernikahan kami
             </p>
             
             <p className="text-pink-200 text-lg mb-6">
@@ -76,11 +81,17 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ guestName, onOpenInvitati
           
           <button 
             onClick={onOpenInvitation}
-            className="group bg-white bg-opacity-20 hover:bg-opacity-30 text-white border border-white px-8 py-3 rounded-sm transition-all duration-300 flex items-center justify-center mx-auto"
+            className="group bg-white bg-opacity-20 hover:bg-opacity-30 text-white border border-white px-8 py-3 rounded-sm transition-all duration-300 flex items-center justify-center mx-auto hover:scale-105 transform"
           >
             <Mail className="w-5 h-5 mr-2 group-hover:animate-pulse" />
             Buka Undangan
           </button>
+          
+          {/* Instructions for testing */}
+          <div className="mt-8 text-xs text-pink-200 opacity-75">
+            <p>Untuk testing personalisasi:</p>
+            <p>Tambahkan ?nama=Nama-Anda di URL</p>
+          </div>
         </div>
       </div>
     </div>
