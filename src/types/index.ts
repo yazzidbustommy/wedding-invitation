@@ -8,12 +8,6 @@ export interface EventDetails {
   mapsUrl: string;
 }
 
-export interface GalleryImage {
-  id: number;
-  src: string;
-  alt: string;
-}
-
 export interface TimelineEvent {
   id: number;
   date: string;

@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { RSVPFormData } from '../types';
 import { db } from '../lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 
-const RSVP: React.FC = () => {
+interface RSVPProps {
+  guestName?: string;
+}
+
+const RSVP: React.FC<RSVPProps> = ({ guestName }) => {
   const [formData, setFormData] = useState<RSVPFormData>({
     name: '',
     phone: '',
@@ -15,6 +19,13 @@ const RSVP: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Pre-fill name if guest name is available
+  useEffect(() => {
+    if (guestName && !formData.name) {
+      setFormData(prev => ({ ...prev, name: guestName }));
+    }
+  }, [guestName, formData.name]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -46,7 +57,7 @@ const RSVP: React.FC = () => {
 
       setSubmitted(true);
       setFormData({
-        name: '',
+        name: guestName || '',
         phone: '',
         attending: true,
         numberOfGuests: 1,

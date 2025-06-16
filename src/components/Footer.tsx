@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
           
           <nav className="mb-6">
             <ul className="flex space-x-6">
-              {['Home', 'Events', 'Gallery', 'Story', 'RSVP'].map((item) => (
+              {['Home', 'Events', 'Story', 'RSVP'].map((item) => (
                 <li key={item}>
                   <a 
                     href={`#${item.toLowerCase()}`}

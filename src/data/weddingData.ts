@@ -1,4 +1,4 @@
-import { EventDetails, GalleryImage, TimelineEvent } from '../types';
+import { EventDetails, TimelineEvent } from '../types';
 
 // Main wedding info
 export const coupleInfo = {
@@ -37,40 +37,6 @@ export const events: EventDetails[] = [
     location: "Kediaman Keluarga Mempelai Pria, Kota",
     description: "Kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara resepsi pernikahan kami di kediaman mempelai pria.",
     mapsUrl: "https://maps.google.com/?q=Groom+Family+Residence+City"
-  }
-];
-
-// Gallery images
-export const galleryImages: GalleryImage[] = [
-  {
-    id: 1,
-    src: "https://images.pexels.com/photos/2253870/pexels-photo-2253870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    alt: "Foto pasangan bergandengan tangan"
-  },
-  {
-    id: 2,
-    src: "https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    alt: "Foto pasangan tersenyum bersama"
-  },
-  {
-    id: 3,
-    src: "https://images.pexels.com/photos/3805762/pexels-photo-3805762.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    alt: "Foto pasangan berjalan di pantai"
-  },
-  {
-    id: 4,
-    src: "https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    alt: "Foto pasangan di taman"
-  },
-  {
-    id: 5,
-    src: "https://images.pexels.com/photos/1043902/pexels-photo-1043902.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    alt: "Foto pertunangan"
-  },
-  {
-    id: 6,
-    src: "https://images.pexels.com/photos/1114425/pexels-photo-1114425.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    alt: "Foto pasangan berdansa"
   }
 ];
 

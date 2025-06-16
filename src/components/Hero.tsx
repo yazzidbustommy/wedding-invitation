@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { coupleInfo } from '../data/weddingData';
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  guestName?: string;
+}
+
+const Hero: React.FC<HeroProps> = ({ guestName }) => {
   const [loaded, setLoaded] = useState(false);
   
   useEffect(() => {
@@ -36,6 +40,14 @@ const Hero: React.FC = () => {
             loaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
           }`}
         >
+          {guestName && (
+            <div className="mb-6">
+              <p className="text-pink-200 text-lg">Kepada Yth.</p>
+              <p className="text-white text-2xl font-medium">{guestName}</p>
+              <div className="w-16 h-0.5 bg-pink-300 mx-auto mt-2"></div>
+            </div>
+          )}
+          
           <p className="text-white text-xl mb-2 font-light">Undangan Pernikahan</p>
           <h1 className="font-serif text-white text-4xl md:text-6xl mb-4">
             {coupleInfo.groomFullName}
