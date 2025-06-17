@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 import { coupleInfo } from '../data/weddingData';
 
 interface HeroProps {
@@ -11,6 +12,13 @@ const Hero: React.FC<HeroProps> = ({ guestName }) => {
   useEffect(() => {
     setLoaded(true);
   }, []);
+
+  const scrollToEvents = () => {
+    const eventsSection = document.getElementById('events');
+    if (eventsSection) {
+      eventsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <section 
@@ -55,15 +63,13 @@ const Hero: React.FC<HeroProps> = ({ guestName }) => {
             {coupleInfo.brideFullName}
           </h1>
           <div className="w-24 h-0.5 bg-pink-300 mx-auto mb-6"></div>
-          <p className="text-white text-xl font-light">
-            {new Date(coupleInfo.weddingDate).toLocaleDateString('id-ID', { 
-              day: 'numeric', 
-              month: 'long', 
-              year: 'numeric'
-            })}
-          </p>
-          <button className="mt-8 px-8 py-3 bg-white bg-opacity-20 hover:bg-opacity-30 text-white border border-white transition-all duration-300 rounded-sm">
-            <a href="#rsvp">Konfirmasi Kehadiran</a>
+          
+          <button 
+            onClick={scrollToEvents}
+            className="mt-8 px-8 py-3 bg-white bg-opacity-20 hover:bg-opacity-30 text-white border border-white transition-all duration-300 rounded-sm flex items-center justify-center mx-auto group"
+          >
+            <span className="mr-2">Lihat Rangkaian Acara</span>
+            <ChevronDown className="w-5 h-5 group-hover:animate-bounce" />
           </button>
         </div>
       </div>
