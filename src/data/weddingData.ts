@@ -17,7 +17,7 @@ export const events: EventDetails[] = [
     date: "12 Desember 2025",
     time: "09:00 - 11:00",
     location: "Gedung Pernikahan, Kota",
-    description: "Kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara akad nikah kami sebagai awal perjalanan kami sebagai suami istri.",
+    description: "",
     mapsUrl: "https://maps.google.com/?q=Wedding+Venue+City"
   },
   {
@@ -26,7 +26,7 @@ export const events: EventDetails[] = [
     date: "13 Desember 2025",
     time: "10:00 - 15:00",
     location: "Kediaman Keluarga Mempelai Wanita, Kota",
-    description: "Kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara resepsi pernikahan kami di kediaman mempelai wanita.",
+    description: "",
     mapsUrl: "https://maps.google.com/?q=Bride+Family+Residence+City"
   },
   {
@@ -35,7 +35,7 @@ export const events: EventDetails[] = [
     date: "14 Desember 2025",
     time: "10:00 - 15:00",
     location: "Kediaman Keluarga Mempelai Pria, Kota",
-    description: "Kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara resepsi pernikahan kami di kediaman mempelai pria.",
+    description: "",
     mapsUrl: "https://maps.google.com/?q=Groom+Family+Residence+City"
   }
 ];

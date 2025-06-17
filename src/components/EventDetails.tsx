@@ -46,8 +46,6 @@ const EventDetails: React.FC = () => {
                 </div>
               </div>
               
-              <p className="text-gray-600 text-sm mb-4">{event.description}</p>
-              
               {/* Button Buka Peta hanya untuk resepsi */}
               {event.id !== 'akad' && (
                 <button
@@ -68,7 +66,7 @@ const EventDetails: React.FC = () => {
             onClick={scrollToRSVP}
             className="px-8 py-3 bg-pink-400 hover:bg-pink-500 text-white rounded-sm transition-all duration-300 flex items-center justify-center mx-auto group"
           >
-            <span className="mr-2">Konfirmasi Kehadiran</span>
+            <span className="mr-2">Kirim Ucapan dan Doa</span>
             <ChevronDown className="w-5 h-5 group-hover:animate-bounce" />
           </button>
         </div>

@@ -76,7 +76,7 @@ const RSVP: React.FC<RSVPProps> = ({ guestName }) => {
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="font-serif text-3xl text-gray-800 mb-2">Konfirmasi Kehadiran</h2>
+            <h2 className="font-serif text-3xl text-gray-800 mb-2">Kirim Ucapan dan Doa</h2>
             <p className="text-gray-600">Mohon konfirmasi kehadiran Anda</p>
             <div className="w-16 h-0.5 bg-pink-300 mx-auto mt-4"></div>
           </div>
