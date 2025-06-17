@@ -9,30 +9,20 @@ interface WelcomeScreenProps {
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ guestName, onOpenInvitation }) => {
   const [loaded, setLoaded] = useState(false);
-  const [debugInfo, setDebugInfo] = useState<string>('');
   
   useEffect(() => {
     setLoaded(true);
     
     // Debug information
     const urlParams = new URLSearchParams(window.location.search);
-    const hashParams = new URLSearchParams(window.location.hash.substring(1));
-    const pathname = window.location.pathname;
+    const toParam = urlParams.get('to');
     
-    const debugData = {
+    console.log('Welcome Screen Debug:', {
       url: window.location.href,
       search: window.location.search,
-      hash: window.location.hash,
-      pathname: pathname,
-      namaFromQuery: urlParams.get('nama'),
-      nameFromQuery: urlParams.get('name'),
-      namaFromHash: hashParams.get('nama'),
-      nameFromHash: hashParams.get('name'),
+      toParameter: toParam,
       guestName: guestName
-    };
-    
-    setDebugInfo(JSON.stringify(debugData, null, 2));
-    console.log('Debug URL Parsing:', debugData);
+    });
   }, [guestName]);
 
   return (
@@ -77,15 +67,24 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ guestName, onOpenInvitati
             {guestName ? (
               <div className="mb-6">
                 <p className="text-pink-200 text-sm mb-2">Kepada Yth.</p>
-                <p className="text-white text-xl font-medium bg-white bg-opacity-20 rounded-lg py-2 px-4">
+                <p className="text-white text-xl font-medium bg-white bg-opacity-20 rounded-lg py-3 px-4 border border-white border-opacity-30">
                   {guestName}
                 </p>
-                <p className="text-green-300 text-xs mt-2">✓ Nama berhasil dimuat</p>
+                <p className="text-green-300 text-xs mt-2 flex items-center justify-center">
+                  <span className="w-2 h-2 bg-green-300 rounded-full mr-2"></span>
+                  Undangan Personal
+                </p>
               </div>
             ) : (
               <div className="mb-6">
-                <p className="text-pink-200 text-sm">Kepada Bapak/Ibu/Saudara/i</p>
-                <p className="text-yellow-300 text-xs mt-2">⚠ Nama tidak ditemukan di URL</p>
+                <p className="text-pink-200 text-sm mb-2">Kepada</p>
+                <p className="text-white text-lg bg-white bg-opacity-20 rounded-lg py-3 px-4 border border-white border-opacity-30">
+                  Bapak/Ibu/Saudara/i
+                </p>
+                <p className="text-yellow-300 text-xs mt-2 flex items-center justify-center">
+                  <span className="w-2 h-2 bg-yellow-300 rounded-full mr-2"></span>
+                  Undangan Umum
+                </p>
               </div>
             )}
             
@@ -110,22 +109,15 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ guestName, onOpenInvitati
             Buka Undangan
           </button>
           
-          {/* Debug information - only show in development */}
-          {process.env.NODE_ENV === 'development' && (
-            <details className="mt-8 text-xs text-left">
-              <summary className="text-pink-200 cursor-pointer">Debug Info (Development Only)</summary>
-              <pre className="text-pink-200 opacity-75 mt-2 bg-black bg-opacity-30 p-2 rounded text-xs overflow-auto max-h-32">
-                {debugInfo}
-              </pre>
-            </details>
-          )}
-          
-          {/* Instructions for testing */}
-          <div className="mt-4 text-xs text-pink-200 opacity-75">
-            <p><strong>Cara menggunakan personalisasi:</strong></p>
-            <p>• ?nama=Tomi → https://yazidandtifa.netlify.app/?nama=Tomi</p>
-            <p>• #nama=Tomi → https://yazidandtifa.netlify.app/#nama=Tomi</p>
-            <p>• /Tomi → https://yazidandtifa.netlify.app/Tomi</p>
+          {/* Instructions for personalization */}
+          <div className="mt-6 text-xs text-pink-200 opacity-75 bg-black bg-opacity-20 rounded-lg p-3">
+            <p className="font-medium mb-1">💡 Cara membuat undangan personal:</p>
+            <p className="font-mono text-pink-100">
+              ?to=Nama-Tamu
+            </p>
+            <p className="mt-1 text-pink-300">
+              Contoh: ?to=Budi-Santoso
+            </p>
           </div>
         </div>
       </div>
