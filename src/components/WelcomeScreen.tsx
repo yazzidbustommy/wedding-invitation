@@ -64,40 +64,33 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ guestName, onOpenInvitati
               {coupleInfo.groomShortName} & {coupleInfo.brideShortName}
             </h2>
             
-            {guestName ? (
-              <div className="mb-6">
-                <p className="text-pink-200 text-sm mb-2">Kepada Yth.</p>
-                <p className="text-white text-xl font-medium bg-white bg-opacity-20 rounded-lg py-3 px-4 border border-white border-opacity-30">
-                  {guestName}
-                </p>
-                <p className="text-green-300 text-xs mt-2 flex items-center justify-center">
-                  <span className="w-2 h-2 bg-green-300 rounded-full mr-2"></span>
-                  Undangan Personal
-                </p>
-              </div>
-            ) : (
-              <div className="mb-6">
-                <p className="text-pink-200 text-sm mb-2">Kepada</p>
-                <p className="text-white text-lg bg-white bg-opacity-20 rounded-lg py-3 px-4 border border-white border-opacity-30">
-                  Bapak/Ibu/Saudara/i
-                </p>
-                <p className="text-yellow-300 text-xs mt-2 flex items-center justify-center">
-                  <span className="w-2 h-2 bg-yellow-300 rounded-full mr-2"></span>
-                  Undangan Umum
-                </p>
-              </div>
-            )}
+            <div className="mb-6">
+              <p className="text-pink-200 text-lg mb-2">Kepada Yth.</p>
+              {guestName ? (
+                <div>
+                  <p className="text-white text-xl font-medium bg-white bg-opacity-20 rounded-lg py-3 px-4 border border-white border-opacity-30">
+                    {guestName}
+                  </p>
+                  <p className="text-green-300 text-xs mt-2 flex items-center justify-center">
+                    <span className="w-2 h-2 bg-green-300 rounded-full mr-2"></span>
+                    Undangan Personal
+                  </p>
+                </div>
+              ) : (
+                <div>
+                  <p className="text-white text-lg bg-white bg-opacity-20 rounded-lg py-3 px-4 border border-white border-opacity-30">
+                    Bapak/Ibu/Saudara/i
+                  </p>
+                  <p className="text-yellow-300 text-xs mt-2 flex items-center justify-center">
+                    <span className="w-2 h-2 bg-yellow-300 rounded-full mr-2"></span>
+                    Undangan Umum
+                  </p>
+                </div>
+              )}
+            </div>
             
             <p className="text-white text-sm mb-6 leading-relaxed">
               Tanpa mengurangi rasa hormat, kami mengundang untuk hadir di acara pernikahan kami
-            </p>
-            
-            <p className="text-pink-200 text-lg mb-6">
-              {new Date(coupleInfo.weddingDate).toLocaleDateString('id-ID', { 
-                day: 'numeric', 
-                month: 'long', 
-                year: 'numeric'
-              })}
             </p>
           </div>
           
