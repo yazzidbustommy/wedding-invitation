@@ -44,13 +44,20 @@ const RSVP: React.FC<RSVPProps> = ({ guestName }) => {
     setError(null);
     
     try {
-      // Use Supabase edge function to proxy to Google Sheets
+      // Check if Supabase environment variables are available
       const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+      
+      if (!supabaseUrl || !supabaseAnonKey) {
+        throw new Error('Konfigurasi Supabase belum diatur. Silakan hubungi administrator.');
+      }
+
+      // Use Supabase edge function to proxy to Google Sheets
       const response = await fetch(`${supabaseUrl}/functions/v1/rsvp-proxy`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'Authorization': `Bearer ${supabaseAnonKey}`,
         },
         body: JSON.stringify({
           name: formData.name,
@@ -71,7 +78,8 @@ const RSVP: React.FC<RSVPProps> = ({ guestName }) => {
       });
 
       if (!response.ok) {
-        throw new Error('Gagal mengirim RSVP');
+        const errorText = await response.text();
+        throw new Error(`Gagal mengirim RSVP: ${response.status} ${response.statusText}`);
       }
 
       const result = await response.json();
@@ -90,7 +98,7 @@ const RSVP: React.FC<RSVPProps> = ({ guestName }) => {
       });
     } catch (err) {
       console.error('Error saat mengirim RSVP:', err);
-      setError('Terjadi kesalahan saat mengirim RSVP. Silakan coba lagi.');
+      setError(err instanceof Error ? err.message : 'Terjadi kesalahan saat mengirim RSVP. Silakan coba lagi.');
     } finally {
       setLoading(false);
     }
