@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import type { RSVPFormData } from '../types';
-import { db } from '../lib/firebase';
-import { collection, addDoc } from 'firebase/firestore';
 
 interface RSVPProps {
   guestName?: string;
@@ -20,12 +18,12 @@ const RSVP: React.FC<RSVPProps> = ({ guestName }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Pre-fill name if guest name is available
+  // Pre-fill name if guest name is available, but allow editing
   useEffect(() => {
     if (guestName && !formData.name) {
       setFormData(prev => ({ ...prev, name: guestName }));
     }
-  }, [guestName, formData.name]);
+  }, [guestName]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -46,18 +44,45 @@ const RSVP: React.FC<RSVPProps> = ({ guestName }) => {
     setError(null);
     
     try {
-      await addDoc(collection(db, 'rsvp'), {
-        name: formData.name,
-        phone: formData.phone,
-        attending: formData.attending,
-        numberOfGuests: formData.numberOfGuests,
-        message: formData.message,
-        createdAt: new Date()
+      // Use Supabase edge function to proxy to Google Sheets
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const response = await fetch(`${supabaseUrl}/functions/v1/rsvp-proxy`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          attending: formData.attending ? 'Ya' : 'Tidak',
+          numberOfGuests: formData.numberOfGuests,
+          message: formData.message,
+          timestamp: new Date().toLocaleString('id-ID', {
+            timeZone: 'Asia/Jakarta',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+          })
+        })
       });
+
+      if (!response.ok) {
+        throw new Error('Gagal mengirim RSVP');
+      }
+
+      const result = await response.json();
+      
+      if (result.error) {
+        throw new Error(result.error);
+      }
 
       setSubmitted(true);
       setFormData({
-        name: guestName || '',
+        name: '',
         phone: '',
         attending: true,
         numberOfGuests: 1,
