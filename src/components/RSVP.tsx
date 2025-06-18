@@ -44,41 +44,34 @@ const RSVP: React.FC<RSVPProps> = ({ guestName }) => {
     setError(null);
     
     try {
-      // Check if Supabase environment variables are available
-      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-      const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-      
-      if (!supabaseUrl || !supabaseAnonKey) {
-        throw new Error('Konfigurasi Supabase belum diatur. Silakan hubungi administrator.');
-      }
-
-      // Use Supabase edge function to proxy to Google Sheets
-      const response = await fetch(`${supabaseUrl}/functions/v1/rsvp-proxy`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${supabaseAnonKey}`,
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          phone: formData.phone,
-          attending: formData.attending ? 'Ya' : 'Tidak',
-          numberOfGuests: formData.numberOfGuests,
-          message: formData.message,
-          timestamp: new Date().toLocaleString('id-ID', {
-            timeZone: 'Asia/Jakarta',
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
+      // Send directly to Google Apps Script
+      const response = await fetch(
+        'https://script.google.com/macros/s/AKfycbx5YnOtCrFMI2lKTjgt9sr6dnLK2UQmMm5tM54JkJ073kvbXQ3Pv1TGy6RDscroS6vY/exec',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            phone: formData.phone,
+            attending: formData.attending ? 'Ya' : 'Tidak',
+            numberOfGuests: formData.numberOfGuests,
+            message: formData.message,
+            timestamp: new Date().toLocaleString('id-ID', {
+              timeZone: 'Asia/Jakarta',
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit'
+            })
           })
-        })
-      });
+        }
+      );
 
       if (!response.ok) {
-        const errorText = await response.text();
         throw new Error(`Gagal mengirim RSVP: ${response.status} ${response.statusText}`);
       }
 
